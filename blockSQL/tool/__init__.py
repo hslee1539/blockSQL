@@ -1,1 +1,0 @@
-from blockSQL.tool.text_module import Text
