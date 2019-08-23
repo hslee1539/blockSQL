@@ -28,6 +28,7 @@ class Connection:
     def execute(self, sql : str) -> blockSQL.cursor_module.Cursor:
         sql = blockSQL.sql.sql_module.string_module.removeHeadNoise(sql)
         sql = blockSQL.sql.sql_module.string_module.removeHeadNoise(sql, '\n')
+        sql = blockSQL.sql.sql_module.string_module.removeHeadNoise(sql)
         funcName = blockSQL.sql.sql_module.findFunc(sql)
         if(funcName == "CREATE TABLE"):
             tableName = blockSQL.sql.sql_module.getInfo_create(sql)
