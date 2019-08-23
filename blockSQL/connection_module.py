@@ -58,6 +58,8 @@ class Connection:
         self._connection_.commit()
         return self
 
-    
+    def quickCheck(self, startID : int, endID):
+        """변조를 빠르게 체크합니다"""
+        
     def close(self):
         self._connection_.close()
