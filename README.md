@@ -1,29 +1,29 @@
 blockSQL
 ======
 # index
-1. [summary](#1.-summary)
+1. [summary](#1summary)
 
-2. [install](#2.install)
+2. [install](#2install)
 
-3. [how to use](#3.how-to-use)
+3. [how to use](#3how-to-use)
 
-    3.1. [import](#3.1.import)
+    3.1. [import](#3.1import)
 
-    3.2. [connect database](#3.2.connect-database)
+    3.2. [connect database](#3.2connect-database)
 
-    3.3. [run sql](#3.3.run-sql)
+    3.3. [run sql](#3.3run-sql)
 
     3.4. [history and block table](#3.4.history-and-block-table)
 
-    3.5. [check modulation](#3.5.check-modulation)
+    3.5. [check modulation](#3.5check-modulation)
 
-4. [example](#4.예제)
+4. [example](#4예제)
 
-    4.1. [school](#3.1.school)
+    4.1. [school](#4.1school)
 
 
 
-# [1.](#index) summary
+# [1.](#index)summary
 
  하나의 데이터베이스안 모든 테이블의 모든 연산에 대해, 각각의 테이블에 대한 history와 그 모든 history에 대한 블록체인을 관리하는 패키지입니다.
 
