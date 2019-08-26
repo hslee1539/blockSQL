@@ -46,7 +46,7 @@ def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, 
 
 
     lastPreviousBlock = cursor.execute("""
-    SELECT history_id, tableName, data, hash, completeTime
+    SELECT *
     FROM block
     ORDER BY id DESC
     LIMIT 1
@@ -56,10 +56,10 @@ def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, 
     for row in historyList:
         previousHash = blockSQL.sql.tool.block_module.createHash(lastPreviousBlock, hashFunc)
         data = blockSQL.sql.tool.block_module.createData(previousHash, row, arc4)
-        currentBlock = (row[0], tableName, data, previousHash, timeFunc())
+        currentBlock = (lastPreviousBlock[0] + 1, row[1], tableName, data, previousHash, timeFunc())
         cursor.execute("""
-        INSERT INTO block (history_id, tableName, data, hash, completeTime)
-        VALUES({0}, "{1}", "{2}", "{3}", {4})
+        INSERT INTO block
+        VALUES({0}, {1}, "{2}", "{3}", "{4}", {5})
         """.format(*currentBlock))
         lastPreviousBlock = currentBlock
 
@@ -69,13 +69,24 @@ def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, 
     WHERE history_isComplete IS NULL
     """.format(tableName))
 
-def check(cursor : sqlite3.Cursor, startID : int, endID : int, hashFunc = hashlib.sha256, arc4 = ARC4.new):
-    """"""
-    blockCursor = cursor.execute("""
-    SELECT history_id, tableName, data, hash, completeTime
+def checkFast(cursor : sqlite3.Cursor, startID : int, endID : int, hashFunc = hashlib.sha256, closeCursor = True) -> int:
+    """블록들의 해시를 검사합니다. 오류가 없을 시, startID, 오류가 있을 시, 해당 id를 반환합니다."""
+    cursor.execute("""
+    SELECT *
     FROM block
     WHERE {0} <= id AND id < {1}
-    """)
+    """.format(startID, endID))
+    retval = startID
+    gen = blockSQL.sql.tool.fetch_module.fetchoneGenerator(cursor)
 
-    previousHash
+    previousHash = blockSQL.sql.tool.block_module.createHash(next(gen), hashFunc)
+    for row in gen:
+        if(row[4] != previousHash):
+            retval = row[0]
+            break
+        previousHash = blockSQL.sql.tool.block_module.createHash(row, hashFunc)
+    if(closeCursor):
+        cursor.close()
+    return retval
+    
 

@@ -108,3 +108,5 @@ print("block table : ", connection.execute("""
 SELECT *
 FROM block
 """).fetchall())
+
+print("변조 유무 : ",connection.checkFast(0, 3) != 0 , "(True 비정상, False 정상)")

@@ -34,8 +34,9 @@ class Connection:
         self._connection_.commit()
         return self
 
-    def quickCheck(self, startID : int, endID):
+    def checkFast(self, startID : int, endID) -> int:
         """변조를 빠르게 체크합니다"""
+        return blockSQL.sql.block_module.checkFast(self._connection_.cursor(), startID, endID, self._hashFunc)
         
     def close(self):
         self._connection_.close()
