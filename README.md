@@ -1,7 +1,7 @@
 blockSQL
 ======
 # index
-1. [summary](#1.summary)
+1. [summary](#1.-summary)
 
 2. [install](#2.install)
 
@@ -23,7 +23,7 @@ blockSQL
 
 
 
-# [1.](#index)summary
+# [1.](#index) summary
 
  하나의 데이터베이스안 모든 테이블의 모든 연산에 대해, 각각의 테이블에 대한 history와 그 모든 history에 대한 블록체인을 관리하는 패키지입니다.
 
