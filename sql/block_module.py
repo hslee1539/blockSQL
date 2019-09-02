@@ -1,11 +1,10 @@
 import hashlib
 import sqlite3
 import time
-from Crypto.Cipher import ARC4
 
 import blockSQL
 
-def create(cursor : sqlite3.Cursor, hashFunc = hashlib.sha256, arc4 = ARC4.new):
+def create(cursor : sqlite3.Cursor, hashFunc = hashlib.sha256):
     retval = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' and name='block';").fetchone()
     if (retval == None):
         cursor.execute("""
@@ -19,7 +18,7 @@ def create(cursor : sqlite3.Cursor, hashFunc = hashlib.sha256, arc4 = ARC4.new):
         );
         """)
         tmpHash = blockSQL.sql.tool.block_module.createHash(["NoData"], hashFunc)
-        tmpData = blockSQL.sql.tool.block_module.createData(tmpHash, ["NoData"], arc4)
+        tmpData = blockSQL.sql.tool.block_module.createData(tmpHash, ["NoData"])
         cursor.execute("""
         INSERT INTO block
         VALUES(
@@ -32,7 +31,7 @@ def create(cursor : sqlite3.Cursor, hashFunc = hashlib.sha256, arc4 = ARC4.new):
         );
         """.format(tmpData, tmpHash))
 
-def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, arc4 = ARC4.new, timeFunc = time.time) -> None:
+def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, timeFunc = time.time) -> None:
     retval = cursor.execute("""
     SELECT *
     FROM {0}_history
@@ -55,7 +54,7 @@ def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, 
     
     for row in historyList:
         previousHash = blockSQL.sql.tool.block_module.createHash(lastPreviousBlock, hashFunc)
-        data = blockSQL.sql.tool.block_module.createData(previousHash, row, arc4)
+        data = blockSQL.sql.tool.block_module.createData(previousHash, row)
         currentBlock = (lastPreviousBlock[0] + 1, row[1], tableName, data, previousHash, timeFunc())
         cursor.execute("""
         INSERT INTO block

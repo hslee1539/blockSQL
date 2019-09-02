@@ -1,7 +1,6 @@
 import sqlite3
 import time
 import hashlib
-from Crypto.Cipher import ARC4
 
 import blockSQL
 
@@ -11,16 +10,15 @@ class Cursor:
     #fields
     _cursor_ : sqlite3.Cursor
 
-    def __init__(self, cursor : sqlite3.Cursor, tableInfo : blockSQL.sql.tool.table_info_module, arc4 = ARC4.new, hashFunc = hashlib.sha256, timeFunc = time.time):
+    def __init__(self, cursor : sqlite3.Cursor, tableInfo : blockSQL.sql.tool.table_info_module, hashFunc = hashlib.sha256, timeFunc = time.time):
         self._cursor_ = cursor
         self._tableInfo = tableInfo
-        self._arc4 = arc4
         self._hashFunc = hashFunc
         self._timeFunc = timeFunc
         self.description = cursor.description
     
     def execute(self, sql : str) :
-        blockSQL.execution_module.execute(self._cursor_, sql, self._tableInfo, self._arc4, self._hashFunc, self._timeFunc)
+        blockSQL.execution_module.execute(self._cursor_, sql, self._tableInfo, self._hashFunc, self._timeFunc)
         self.description = self._cursor_.description
         return self
 

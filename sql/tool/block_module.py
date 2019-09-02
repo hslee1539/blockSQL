@@ -1,5 +1,5 @@
 import hashlib
-import Crypto.Cipher.ARC4
+import blockSQL
 
 def createHash(iterable = (), hashFunc = hashlib.sha256) -> str:
     text = ""
@@ -7,11 +7,11 @@ def createHash(iterable = (), hashFunc = hashlib.sha256) -> str:
         text += str(item)
     return hashFunc(text.encode()).hexdigest()
 
-def createData(key : str, iterable : tuple, arc4 = Crypto.Cipher.ARC4.new) -> str:
+def createData(key : str, iterable : tuple) -> str:
     text = ""
     for item in iterable:
         text += str(item) + " "
-    return arc4(key.encode()).encrypt(text.encode()).hex()
+    return blockSQL.crypto.rc4_module.rc4_encrypt(key, text)
 
-def decryptData(key : str, data : str, arc4 = Crypto.Cipher.ARC4.new) -> str:
-    return arc4(key.encode()).decrypt(bytes.fromhex(data)).decode()
+def decryptData(key : str, data : str) -> str:
+    return blockSQL.crypto.rc4_module.rc4_encrypt(key, data)
