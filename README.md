@@ -16,6 +16,8 @@ blockSQL
     3.4. [history and block table](#3.4.history-and-block-table)
 
     3.5. [check modulation](#3.5check-modulation)
+    
+    3.6. [Pandas](#3.6Pandas)
 
 4. [example](#4예제)
 
@@ -66,7 +68,7 @@ connection = blockSQL.Connection("-your databass file-")
 ~~~
 blockSQL.[Connection](./connection_module.py) 클래스를 생성하면 됩니다.
 sqlite와 다르게 클래스를 직접 생성자로 생성하는 방법만 지원합니다.
-## [3.3.](#3.how-to-use)run sql
+## [3.3.](#3how-to-use)run sql
 ~~~python
 import blockSQL
 connection = blockSQL.Connection("-your databass file-")
@@ -75,7 +77,7 @@ cursor.execute("-your sql 2-")
 ~~~
 >참고!! sql 예약어들을 대문자로 입력을 해야 blockSQL이  실행됩니다. 소문자를 입력시 일반 sqlite가 작동됩니다.
 
-## [3.4.](#3.how-to-use)history-and-block-table
+## [3.4.](#3how-to-use)history-and-block-table
 ~~~python
 import blockSQL
 connection = blockSQL.Connection(":memory:") # block 테이블이 만들어 지는 시점
@@ -124,8 +126,18 @@ INSERT INTO a
 VALUES ( 10, "ten")
 """)# sqlite3 에러 : a_history 테이블이 없음
 ~~~
-## [3.5.](#3.how-to-use)check-modulation
+## [3.5.](#3how-to-use)check-modulation
 blockSQL의 위변조 유무를 Connection.checkFast 메소드로 확인할 수 있습니다.
+
+## [3.6.](#3how-to-use)[Pandas](https://pandas.pydata.org/)
+blockSQL.Connection 객체는 pandas.read_sql의 인수로 넣고 데이터 분석을 가능합니다. (단, pandas는 blockSQL에 포함되어 있지 않습니다.)
+~~~python
+import blockSQL
+import pandas
+connection = blockSQL.Connection("test.db")
+dataFrame = pandas.read_sql("select * from stu_history", connection)
+~~~
+
 
 # [4.](#index)example
 ## [4.1.](#3.example)school

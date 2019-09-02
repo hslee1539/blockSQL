@@ -21,6 +21,7 @@ class Cursor:
     
     def execute(self, sql : str) :
         blockSQL.execution_module.execute(self._cursor_, sql, self._tableInfo, self._arc4, self._hashFunc, self._timeFunc)
+        self.description = self._cursor_.description
         return self
 
     def fetchone(self) -> Any:
