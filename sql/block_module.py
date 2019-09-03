@@ -55,7 +55,7 @@ def insert(cursor : sqlite3.Cursor, tableName : str, hashFunc = hashlib.sha256, 
     for row in historyList:
         previousHash = blockSQL.sql.tool.block_module.createHash(lastPreviousBlock, hashFunc)
         data = blockSQL.sql.tool.block_module.createData(previousHash, row)
-        currentBlock = (lastPreviousBlock[0] + 1, row[1], tableName, data, previousHash, timeFunc())
+        currentBlock = (lastPreviousBlock[0] + 1, row[0], tableName, data, previousHash, timeFunc())
         cursor.execute("""
         INSERT INTO block
         VALUES({0}, {1}, "{2}", "{3}", "{4}", {5})
