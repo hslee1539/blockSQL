@@ -29,6 +29,12 @@ class Cursor:
     def fetchall(self) -> list:
         """리스트를 반환합니다."""
         return self._cursor_.fetchall()
+
+    def fetch_tkinter(self, titleName = "blockSQL table viewer") -> blockSQL.graphic.window_module.TableWindow:
+        retval = self._cursor_.fetchall()
+        if(len(retval) == 0):
+            retval = [["None"]]
+        return blockSQL.graphic.window_module.TableWindow(self.description, retval, titleName)
     
     def close(self) -> None:
         self._cursor_.close()

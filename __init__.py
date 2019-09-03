@@ -1,4 +1,6 @@
 from blockSQL import crypto
+from blockSQL import graphic
+
 from blockSQL import sql
 from blockSQL import cursor_module
 from blockSQL import connection_module

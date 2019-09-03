@@ -88,25 +88,30 @@ UPDATE stu
 SET age = 13
 WHERE name = "홍길동"
 """)
-print("stu table : ", connection.execute("""
+s = connection.execute("""
 SELECT *
 FROM stu
-""").fetchall())
-print("tea table : ", connection.execute("""
+""").fetch_tkinter("stu table")
+t = connection.execute("""
 SELECT *
 FROM tea
-""").fetchall())
-print("stu_history table : ", connection.execute("""
+""").fetch_tkinter("tea table")
+sh = connection.execute("""
 SELECT *
 FROM stu_history
-""").fetchall())
-print("tea_history table : ", connection.execute("""
+""").fetch_tkinter("stu_history table")
+th = connection.execute("""
 SELECT *
 FROM tea_history
-""").fetchall())
-print("block table : ", connection.execute("""
+""").fetch_tkinter("tea_history table")
+
+connection.execute("""
 SELECT *
 FROM block
-""").fetchall())
+""").fetch_tkinter("block table").mainloop()
+s.mainloop()
+sh.mainloop()
+t.mainloop()
+th.mainloop()
 
 print("변조 유무 : ",connection.checkFast(0, 3) != 0 , "(True 비정상, False 정상)")

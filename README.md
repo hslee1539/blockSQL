@@ -7,17 +7,19 @@ blockSQL
 
 3. [how to use](#3how-to-use)
 
-    3.1. [import](#3.1import)
+    3.1. [import](#31import)
 
-    3.2. [connect database](#3.2connect-database)
+    3.2. [connect database](#32connect-database)
 
-    3.3. [run sql](#3.3run-sql)
+    3.3. [run sql](#33run-sql)
 
-    3.4. [history and block table](#3.4.history-and-block-table)
+    3.4. [history and block table](#34history-and-block-table)
 
-    3.5. [check modulation](#3.5check-modulation)
+    3.5. [check modulation](#35check-modulation)
     
-    3.6. [Pandas](#3.6Pandas)
+    3.6. [Pandas](#36Pandas)
+
+    3.7. [테이블 시각화](#37테이블-시각화)
 
 4. [example](#4예제)
 
@@ -138,6 +140,10 @@ connection = blockSQL.Connection("test.db")
 dataFrame = pandas.read_sql("select * from stu_history", connection)
 ~~~
 
+## [3.7.](#3how-to-use)테이블 시각화
+blockSQL.Cursor 클래스의 fetch_tkinter 메소드로 테이블을 윈도우에 표시할 수 있습니다. 파이썬의 기본 tkinter 모듈로 구현됬습니다.
+
+![그림](./doc/example_tk.jpg)
 
 # [4.](#index)example
 ## [4.1.](#3.example)school
