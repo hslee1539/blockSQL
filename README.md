@@ -70,6 +70,8 @@ connection = blockSQL.Connection("-your databass file-")
 ~~~
 blockSQL.[Connection](./connection_module.py) 클래스를 생성하면 됩니다.
 sqlite와 다르게 클래스를 직접 생성자로 생성하는 방법만 지원합니다.
+
+참고로, blockSQL.Connection 클래스 생성자 인수중, sqlite3.Connection 클래스를 기본값으로 받게 되어 있습니다. sqlite3가 아닌 다양한 라이브러리의 Connection 클래스가 올 수 있습니다. 예를 들어, sqlite3가 아닌 분산처리 db를 사용한다던지, 실시간 처리용 db를 사용할 수 있습니다.
 ## [3.3.](#3how-to-use)run sql
 ~~~python
 import blockSQL
